@@ -6,7 +6,7 @@ import scipy.constants
 import scipy.sparse
 
 DELTA_X = 1
-DELTA_T = 1
+DELTA_T = 0.2
 DELTA_RATIO = DELTA_T / DELTA_X
 MU_0 = scipy.constants.mu_0
 EPSILON_0 = scipy.constants.epsilon_0
@@ -14,7 +14,7 @@ ETA_0 = 377
 COURANT_E = 1 / EPSILON_0 * (DELTA_T / DELTA_X)
 COURANT_H = 1 / MU_0 * (DELTA_T / DELTA_X)
 
-MAX_X = 200
+MAX_X = 500
 
 time = 0
 x = np.arange(0, MAX_X, DELTA_X)
@@ -73,7 +73,7 @@ def update(frame):
 	hy += H @ ez
 	ez += E @ hy
 	#ez[int(len(x) / 2)] += np.exp(-((time - 50)**2) / 400) * np.cos(time)
-	ez[int(len(x) / 2)] += np.exp(-((time - 50)**2) / 400)
+	ez[int(len(x) / 2)] += 0.1*np.exp(-((time - 10)**2) / 10)
 	line.set_data(x, ez)
 	return line,
 

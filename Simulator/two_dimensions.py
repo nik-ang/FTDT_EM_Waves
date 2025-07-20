@@ -114,9 +114,8 @@ C_HField = 1 / (epsilon * (1 + (conductivity * DELTA_T) / (2 * epsilon)))
 C_EzE = C_EField
 C_EzH = C_HField
 
-
+'''
 def init_plot():
-	#ax.imshow(background_image)
 	return heatmap,
 
 ax.set_aspect(1)
@@ -165,14 +164,13 @@ def update(frames):
 	Ez = C_EzE * Ez + C_EzH * (Ez_Hy.tensordot(Hy, axes=([1], [0])) - Ez_Hx.tensordot(Hx, axes=([1], [1])).T)
 	#Ez += source(source_mesh_x, source_mesh_y, time) - source(source_mesh_x, source_mesh_y, time - DELTA_T)
 	
-	Ez[:, int(SIZE_Y / 2)] += 0.1*np.exp(-((time - 100)**2) / 1000)
+	Ez[:, int(SIZE_Y / 2)] += 0.1*np.exp(-((time - 10)**2) / 10)
 	#Ez[:, int(SIZE_Y / 2)] += np.cos(0.25*time) - np.cos(0.25*(time - DELTA_T))
 
 	time += DELTA_T
 
 	line.set_data(x, Ez[int(SIZE_X / 2), :])
 	return line,
-'''
 
 ani = animation.FuncAnimation(fig, update, frames = np.arange(0, 2, 1), interval = 0.001, init_func = init_plot, blit = True)
 plt.show()
