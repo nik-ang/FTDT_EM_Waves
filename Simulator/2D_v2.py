@@ -1,5 +1,6 @@
 from typing import List
 import numpy as np
+import skimage as ski
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import matplotlib.colors
@@ -7,6 +8,17 @@ import scipy as sp
 import time
 import concurrent.futures
 
+class EM_Source(object):
+	
+	def __init__(self, indices, func, amp_phase = None):
+		self.indices: tuple[np.ndarray] = indices
+		self.func: function = func
+		self.amplitude_phase: np.ndarray
+		if amp_phase is None:
+			self.amplitude_phase = np.ones_like(indices[0])
+		else:
+			self.amplitude_phase = amp_phase
+			
 
 class FTDT_EM(object):
 
@@ -33,7 +45,7 @@ class FTDT_EM(object):
 		self.conductivity = np.zeros_like(self.Ez)
 		self.material_patches = []
 		#SOURCES
-		self.sources: List[tuple[np.ndarray, function]] = []
+		self.sources: List[EM_Source] = []
 		#TENSOR OPERATORS
 		self.Hx_Ez = sp.sparse.coo_array(self.__forwards_matrix(self.SIZE_Y - 1, self.SIZE_Y) * self.DELTA_T / self.DELTA_Y)
 		self.Hy_Ez = sp.sparse.coo_array(self.__forwards_matrix(self.SIZE_X - 1, self.SIZE_X) * self.DELTA_T / self.DELTA_X)
@@ -92,10 +104,22 @@ class FTDT_EM(object):
 		self.__generate_constants()
 
 	def point_source(self, point, function):
-		x, y = point
-		index = np.ix_([x], [y])
-		self.sources.append((index, function))
-		print(self.Ez[index])
+		index = (point[0], point[1])
+		self.sources.append(EM_Source(index, function))
+
+	def line_source(self, point_a, point_b, function):
+		rr, cc, weight = ski.draw.line_aa(point_a[0], point_a[1], point_b[0], point_b[1])
+		index = (rr, cc)
+		self.sources.append(EM_Source(index, function, weight))
+
+	def line_source_fade(self, point_a, point_b, function):
+		rr, cc, weight = ski.draw.line_aa(point_a[0], point_a[1], point_b[0], point_b[1])
+		index = (rr, cc)
+		x0 = 0.5*(point_a[0] + point_b[0])
+		y0 = 0.5*(point_a[1] + point_b[1])
+		distances = np.power(rr - x0, 2) + np.power(cc - y0, 2)
+		weight = weight * np.exp( - distances / (1000))
+		self.sources.append(EM_Source(index, function, weight))
 
 	def gaussian_beam(self, starting_point, direction, width, frequency):
 		pass
@@ -118,7 +142,7 @@ class FTDT_EM(object):
 		concurrent.futures.wait(self.futures, timeout=None, return_when=concurrent.futures.FIRST_EXCEPTION)
 		self.__updateEz()
 		for source in self.sources:
-			self.Ez[source[0]] = source[1](self.time)
+			self.Ez[source.indices] = source.amplitude_phase * source.func(self.time)
 		self.time += self.DELTA_T
 
 # CREATE NEW PALETTE WITH TRANSPARENCY
@@ -132,8 +156,9 @@ plt.colormaps.register(cmap=map_object)
 ### MAIN ===================================================================================================
 simulator = FTDT_EM(500, 500, 1, 1, 0.2)
 simulator.add_rectangle_material((0,0), simulator.SIZE_X, simulator.SIZE_Y/2, 1.33, 0.01, "#191981", alpha=0.1)
-simulator.point_source(point=(250, 250), function = lambda t: 10*np.exp(-((t - 10)**2) / 50) * np.cos(0.5*t))
-simulator.point_source(point=(100, 400), function = lambda t: 10*np.exp(-((t - 10)**2) / 50) * np.cos(0.5*t))
+#simulator.point_source(point=(250, 250), function = lambda t: 10*np.exp(-((t - 10)**2) / 50) * np.cos(0.5*t))
+#simulator.point_source(point=(100, 400), function = lambda t: 10*np.exp(-((t - 10)**2) / 50) * np.cos(0.5*t))
+simulator.line_source_fade(point_a=(250, 250), point_b=(100, 400), function = lambda t: 10 * np.cos(0.2*t))
 
 fig, ax = plt.subplots()
 plt.style.use('dark_background')
