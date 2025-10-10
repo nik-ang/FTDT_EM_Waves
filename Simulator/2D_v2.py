@@ -19,7 +19,7 @@ DELTA_X = DELTA_T * np.sqrt(2) * sp.constants.c
 DELTA_Y = DELTA_X
 simulator = FDTD_v2.FTDT_EM(500, 500, DELTA_X, DELTA_Y, DELTA_T, mur_abc = True)
 
-epsilon_r = 5
+epsilon_r = 1.33
 sigma = 0
 
 simulator.add_rectangle_material((0,0), simulator.SIZE_X, simulator.SIZE_Y / 2, epsilon_r, sigma, "#191981", alpha=0.1)
@@ -44,6 +44,7 @@ print(test_sum)
 assert(np.isclose(0, test_sum))
 
 
+#simulator.gaussian_beam(starting_point = (200, 600), direction = (1, -1), width = 40, function = source_func)
 simulator.gaussian_beam(starting_point = (150, 350), direction = (1, -1), width = 40, function = source_func)
 #simulator.phased_array(starting_point = (100, 400), direction = (1, -1), width = 40, function = source_func)
 
@@ -117,7 +118,7 @@ def update(frames):
 
 
 	#start = time.time()
-	for _ in range(5):
+	for _ in range(2):
 		simulator.update()
 	#end = time.time()
 	#print(end - start)
@@ -166,6 +167,8 @@ def update(frames):
 
 ani = animation.FuncAnimation(fig, update, frames = np.arange(0, 2, 1), interval = 0.001, init_func = init_plot, blit = True)
 plt.show()
+
+print(f"Elapsed Time: {simulator.time}")
 
 ## MEASUREMENTS ============================================================================================
 

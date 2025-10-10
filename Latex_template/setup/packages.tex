@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%General Packages (alphabetic order):						   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[acronym]{glossaries} 	% For acronyms and gloassaries
+\usepackage{adjustbox}              % For adjusting the box size (of tables)
+\usepackage{amsmath}
+%\usepackage{algorithmic}
+\usepackage{cite}					% either cite or natbib
+\usepackage{hyperref}                    %clickable references      % load after most stuff
+\usepackage{cleveref}                    %\Cref \cref               % load after hyperref
+\usepackage[width=160mm,
+bindingoffset=14mm,
+top=24mm,
+bottom=27mm]{geometry}       % proper geometry for binding % load after hyperref
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,%linkcolor={blue!50!black},
+	citecolor=blue,%red,%citecolor={blue!50!black},
+	urlcolor=blue%urlcolor={blue!80!black}
+}
+%\usepackage{enumerate} 			% for alphanumerical enumerate  [(a)] [(i)]. Commented in favor of enumitem, that one seems more complete and has more support/features.
+\let\labelindent\relax
+\usepackage{enumitem}				% fot no indentation in itemize and roman or alphanumerical enumerate [(a)] [(i)]
+\usepackage[T1]{fontenc}			% font
+\usepackage{geometry}				% for setting page margin
+\usepackage{graphicx}
+	\graphicspath{{./figures/}}		% to set the figures path
+%\usepackage[hidelinks]{hyperref}	% auto referencing figures, equations, etc., cleverref is a better package however
+\usepackage[utf8]{inputenc}			% font
+\usepackage{libertine}				% to use the libertine font
+\usepackage{multirow}				% multirow for tables
+\usepackage{tabularx} 				% extra features for tabular environment
+\usepackage{threeparttable}
+\usepackage{todonotes} 				% to use comments and to-do notes
+%some useful options:				[disable, prependcaption, textsize=footnotesize]{todonotes} 
+\usepackage{setspace}				% for setting line space to 1.5
+\usepackage{subfigure}
+\usepackage{soul} 					% for highlighting
+\usepackage{url}					% for URLs and internet links
+\usepackage{xargs}    				% for newcommandx definitions e.g. notes & colors
+%\usepackage[svgnames]{xcolor}		% is already loaded by the document class
+
+
+
+
+
+
+
+
+

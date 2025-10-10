@@ -1,0 +1,123 @@
+% ------------------------------------------------------------\\
+% Macros to use title and author information in the document
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\makeatother
+% ------------------------------------------------------------
+
+% ------------------------------------------------------------
+% Visual & functional setup (do not change)
+\geometry{								% setting page margins
+	left   = 2.5cm,
+	right  = 2.5cm,
+	top    = 2.75cm,
+	bottom = 2.75cm
+}
+\setstretch{1.5}						% setting line spacing
+\makenoidxglossaries					% to make the acronym list
+\let\MakeUppercase\relax				% changing section headers to lower case instad of all caps
+\setlist{noitemsep} 					% to leave space around the whole list or \setlist{nosep} to have no space around the whole list
+% ------------------------------------------------------------
+
+% ------------------------------------------------------------
+% Setting defaults variables for the title page & language (avoid changing)
+% Language specific parts
+\newcommand{\prefacename}{Preface}
+\newcommand{\acknowledgment}{Acknowledgment}
+\newcommand{\dedication}{Dedication}
+\newcommand{\german}{
+	\usepackage{german}
+  	\usepackage[german]{cleveref}
+	\renewcommand{\acknowledgment}{Danksagung} 
+	\renewcommand{\dedication}{Widmung}
+	\renewcommand{\by}{von}
+  	\renewcommand{\location}{Wien, \"{O}sterreich}
+	\renewcommand{\purpose}{ZUR ERBRINGUNG DER ANFORDERUNGEN F\"{U}R DEN GRAD DES}
+  	\renewcommand{\supervision}{ {\bf Betreuer\_Innen:}    \\ \supervisor \\ 	  \cosupervisor \\ 	}
+	}
+% Title page (with English as the default language)
+\newcounter{documenttype}
+\setcounter{documenttype}{\doctype}
+\newcommand{\degree}{}
+\newcommand{\purpose}{IN PARTIAL FULFILLMENT OF THE REQUIREMENTS \\ FOR THE DEGREE OF}
+\newcommand{\type}{A THESIS ON}
+\newcommand{\typeofdegree}{in}
+\newcommand{\by}{by}
+\newcommand{\supervision}{ {\bf Supervisor(s):}    \\ \supervisor \\ 	  
+\cosupervisor \\ 	}
+\newcommand{\location}{Vienna, Austria}
+\newcommand{\submissiondate}{\submissionmonth~\submissionyear}
+
+%end default
+%if case (for variations of document type)
+\newcommand{\setdoctype}{%
+  \ifcase\number\value{documenttype}
+  	% Case 0
+  	\usepackage{cleveref}
+	\renewcommand{\type}{A REPORT ON}
+	\renewcommand{\purpose}{\vspace{2em}}
+	\renewcommand{\typeofdegree}{\vspace{2em}}
+	\renewcommand{\supervision}{\vspace{3em}}
+  \or %1
+  	\usepackage{cleveref}
+  	\renewcommand{\type}{A BACHELOR THESIS ON}
+  	\renewcommand{\degree}{Bachelor of Science}
+  \or %2
+  	\usepackage{cleveref}
+  	\renewcommand{\type}{A MASTER THESIS ON}
+  	\renewcommand{\degree}{Diplom-Ingenieur \\ \large{(Equivalent to Master of Science)}}
+  \or %3
+  	\usepackage{cleveref}
+  	\renewcommand{\type}{A PhD THESIS ON}
+  	\renewcommand{\degree}{Doctor of Philosophy}
+  \or %4   
+    \usepackage{cleveref}
+    \renewcommand{\degree}{A HABILITATION THESIS ON}
+    \renewcommand{\purpose}{IN PARTIAL FULFILLMENT OF THE REQUIREMENTS FOR}
+    \renewcommand{\supervision}{\vspace{3em}}
+  \or %reserved for future modes and developements	
+  \or %reserved for future modes and developements
+  \or %reserved for future modes and developements
+  \or %reserved for future modes and developements
+  \or %reserved for future modes and developements
+  \or %10
+  	\german  	
+  	\renewcommand{\type}{EIN BERICHT \"{U}BER}
+	\renewcommand{\purpose}{\vspace{2em}}
+	\renewcommand{\typeofdegree}{\vspace{2em}}
+	\renewcommand{\supervision}{\vspace{3em}}
+  \or %11
+  	\german 
+  	\renewcommand{\type}{EINE BACHELORARBEIT \"{U}BER}
+  	\renewcommand{\degree}{Bachelor of Science}
+
+  \or %12
+	\german
+  	\renewcommand{\type}{EINE DIPLOMARBEIT \"{U}BER}
+  	\renewcommand{\degree}{Diplom-Ingenieur}
+  \or %13
+  	\german
+  	\renewcommand{\type}{EINE DOKTORARBEIT \"{U}BER}
+  	\renewcommand{\degree}{Doktor-Technicker}
+  \or %14
+  	\german 
+  	\renewcommand{\type}{EINE HABILITATIONSTHESIS  \"{U}BER}
+  	\renewcommand{\degree}{Privat Dozent}
+  	\renewcommand{\supervision}{\vspace{3em}}
+  \else
+  \fi
+}
+
+\setdoctype
+% ------------------------------------------------------------
+
+% ------------------------------------------------------------
+% Other Setups (feel free to add, remove, change, ...)
+
+\newcommand{\red}[1]{\color{red}##1\color{black}{}}		% to write text in \red{text}
+\newcommand{\green}[1]{\color{Green}##1\color{black}{}}	% to write text in \green{text}
+\newcommand{\blue}[1]{\color{blue}##1\color{black}{}}	% to write text in \blue{text}
+
+\newcommand{\plan}[1]{\todo[inline, linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{Plan: #1}}			% to make note of plans or to-dos
+% similar command can be used for commenting on the text

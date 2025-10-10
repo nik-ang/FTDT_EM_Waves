@@ -1,0 +1,43 @@
+% Settings
+\documentclass[11pt, a4paper, svgnames]{book}
+% Document (thesis/report) and author (student, supervisors) information
+\title{Title}
+\author{Dominic Waldhoer}
+\def\stdnum{Student ID: 01226100}			% Matrikel nummer (if applicable)
+\def\doctype{1}					% Report=0, BSc=1, MSc=2, PhD=3, Hab=4 
+								% Add 10 for German versions (Diplomarbeit=12)
+\def\program{Electrical Engineering and Information Technology}	% For reports leave this field empty
+\def\prognum{(033 235)}		% For reports leave this field empty
+\def\supervisor{Supervisor's  Name}		% Leave empty if not needed for you report
+\def\cosupervisor{sadf}% Leave empty if you don't have one
+\def\submissionmonth{July} 
+\def\submissionyear{2025}
+% Feel free to edit acronyms files and other files in the text folder as per your need, however, refrain from changing the setup files (files in the setup folder). For packages also, instead of editing, consider adding new packages elsewhere (e.g., in a new file).
+\input{setup/packages}		% These packages must be defined before setup		
+\input{setup/setup}			% Please avoid editing
+\input{text/acronyms}		% Please edit as necessary
+%----------------------------------------------------------------------------
+%----------------------------------------------------------------------------
+%% Document body 				% Edit only the preamble and the main text
+% *** Ideally you change only the content of the files in the text folder ****
+\begin{document}
+\input{setup/titlepage}  		% Generated automatically, do not change.   
+\input{text/preamble}			% Please edit as necessary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 							Main Text						   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Insert the main body of your document here. For longer documents we suggest using separate files and including them here with \input{<file>} command.
+\input{text/chapter1}
+%----------------------------------------------------------------------------
+% List of References
+\newpage
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliographystyle{IEEEtran}
+\bibliography{text/references}		% Insert your bib entries
+%----------------------------------------------------------------------------
+% Appendices (Remove the following lines if you don't have an appendix)
+\appendix
+\renewcommand{\thechapter}{\Alph{chapter}}
+\input{text/appendix}
+%----------------------------------------------------------------------------
+\end{document}

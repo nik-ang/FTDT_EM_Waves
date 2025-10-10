@@ -1,0 +1,57 @@
+                Institute of Computer Technology - TU Wien 
+                
+    Guideline for the ICT Report and Thesis Template by Sofia Maragkou
+
+            Contact: Axel Jantsch <axel.jantsch@tuwien.ac.at>
+            
+            Guidelines: https://www.tuwien.at/en/etit/ict/ressources
+
+
+For a quick start edit the following:
+------------------------------------
+
+main.tex              Select the document type, and edit the document and author                                   information. Add more LaTeX files if needed e.g. for more chapters.
+text/acronyms.tex     Edit the acronyms used in this document as needed.
+text/preamble.tex     Edit the preable of your document, including the abstract, copyright                         of the document, preface, acknowledgment, dedication.
+text/chapter.tex      This file is for the main body of your text. Add more chapters if                            needed by adding them also in the main.tex file.  
+text/references.tex   Edit the references of your document. 
+text/appendix.tex     If needed, add the appendix of your document here.
+
+
+
+Description and usage
+---------------------
+
+This template supports 5 different types of documents in english:
+ code 0 : report
+ code 1: bachelor thesis
+ code 2: master thesis
+ code 3: PhD thesis
+ code 4: Habilitation thesis 
+
+and in german: 
+ code 10 : report
+ code 11: bachelor thesis
+ code 12: master thesis
+ code 13: PhD thesis
+ code 14: Habilitation thesis 
+
+*Details for the document types you can find in setup/setup.tex
+
+
+To select the preferred document type, edit the file main.tex by changing the \def\doctype{x} to the preferred code correspondingly. 
+
+Additionally, edit the rest of the main.tex to add the document's and the author's information. 
+
+Feel free to add acronyms (text/acronyms.tex), references (references.bib), appendix information (appendix.tex), preamble (preamble.tex) and even add more chapters (e.g. chapter1.tex).
+In the case more chapters are added, include them in the main.tex in the following way (e.g. chapter1.tex):
+\input{text/chapter1}
+
+
+
+
+
+
+
+
+

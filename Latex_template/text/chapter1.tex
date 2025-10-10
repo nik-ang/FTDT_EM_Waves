@@ -1,0 +1,65 @@
+\chapter{Introduction}
+Here you see some simple examples of commonly used items.
+
+\section{Figures}
+\label{sec_int_fig}
+This is how you insert a figure. To refer to a figure, for example \Cref{fig_sample}, you should use a ref command. Generally, using cref command (as used here too) is strongly advised since it can be used for figures, tables, equations, etc., and ensures consistency across the document and more importantly with various templates. Please remember that the caption of figures goes below the figure (whereas for tables the caption goes on the top). To ensure legibility of the figures, make sure the text in the figure is approximately as large as the figure caption or larger.
+\begin{figure}[!b] % Priority to place the figure: b=Bottom, t=Top, h=Here
+\centering
+\includegraphics[width=0.6\columnwidth]{sample}
+\caption{Here goes the caption for the figure.}
+\label{fig_sample}
+\end{figure}
+
+\section{Tables}
+\Cref{tab_sample} shows how to insert and refer to a table.  Please remember that the caption of tables goes on top and before the table (whereas for figures the caption goes at the bottom).
+
+\begin{table}[!t] % Priority to place the figure: b=Bottom, t=Top, h=Her
+    \centering
+    \caption{Caption of the table.}
+    \label{tab_sample}   
+    \begin{tabular}{|c|c c c | c|}
+         \hline
+          1 & 2 & 3 & 4 & 5 \\
+         \hline \hline
+         6 & 7 & 8 & 9 & 10 \\
+         11 & 12 & 13 & 14 & 15 \\
+         \hline
+    \end{tabular}
+\end{table}
+
+Often multicolumn, multirow cells, or footnotes\footnote{Footnotes for the body of text are inserted using the footnote command as you see here.} are not necessary, however, the sample in \Cref{tab_sample_complex} facilitates using them if necessary. If your table is too large for the page, use the adjustbox command (currently commented out) in the source code of \Cref{tab_sample}.
+
+\begin{table}[!h] % Priority to place the figure: b=Bottom, t=Top, h=Her
+    \centering
+    \caption{A more complex table.}
+    \label{tab_sample_complex}   
+    %\begin{adjustbox}{width=\textwidth}
+    \begin{threeparttable}
+    \begin{tabular}{|c|c c c | c|}
+         \hline
+         \multirow{2}{*}{Multirow}  & \multicolumn{3}{c|}{Multicolumn} & 1\\
+         \cline{2-5}
+          & 2 & 3 & 4 & 5\textsuperscript{+} \\
+         \hline \hline
+         6 & 7 & 8 & 9 & 10 \\
+         11 & 12\textsuperscript{*} & 13 & 14 & 15 \\
+         \hline
+    \end{tabular}
+      \begin{tablenotes}
+       %\scriptsize
+       \item[+] Percentage of improvement (Imp.) is calculated based on $n \to \infty$.
+       \item[*]$c=8$ for all calculated values.
+     \end{tablenotes}
+     \end{threeparttable}
+     %\end{adjustbox}
+\end{table}
+
+
+\section{How to refer to...}
+To refer to various items inside the current document, such as (sub)sections, figures, tables, equations, you should use ref commands (preferably Cref command) as demonstrated in 
+\Cref{sec_int_fig}. However, to refer to items outside the current document you should use citation commands. This is how you cite sources and references \cite{Taherinejad2019LSCNewsletter}. If you are citing a website/internet source make sure that you list the data of last access in the reference (bibfile entry of the reference). For example, \gls{ict} thesis and presentation templates can be found here~\cite{templates2020}
+
+Moreover, remember to use the gls command for all \glspl{acr}. By doing so, the compiler makes sure that any \gls{acr} (command for singular) and all \glspl{acr} (command for plural) are properly spelled out at their first appearance and only there. This way, by changing the text, adding, removing, or replacing parts, you don't need to find out where the first appearance of an \gls{acr} is to spell it out. In addition, using this command your acronym list is automatically compiled.
+
+

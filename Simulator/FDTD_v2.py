@@ -123,8 +123,8 @@ class FTDT_EM(object):
 	def gaussian_beam(self, starting_point, direction, width, function):
 		line_direction = np.array([-1 * direction[1], direction[0]])
 		starting_point = np.array([starting_point[0], starting_point[1]])
-		point_a = starting_point + 2 * width * line_direction
-		point_b = starting_point - 2 * width * line_direction
+		point_a = np.round(starting_point + 2 * width * line_direction).astype(np.int32)
+		point_b = np.round(starting_point - 2 * width * line_direction).astype(np.int32)
 		rr, cc, weight = ski.draw.line_aa(point_a[0], point_a[1], point_b[0], point_b[1])
 		index = (rr, cc)
 		x0 = 0.5*(point_a[0] + point_b[0])
