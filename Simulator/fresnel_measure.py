@@ -20,7 +20,7 @@ DELTA_Y = DELTA_X
 simulator = FDTD_v2.FTDT_EM(500, 500, DELTA_X, DELTA_Y, DELTA_T, mur_abc = True)
 simulator_the_second = FDTD_v2.FTDT_EM(500, 500, DELTA_X, DELTA_Y, DELTA_T, mur_abc = True)
 
-epsilon_r = 1.33
+epsilon_r = 5
 sigma = 0
 
 simulator.add_rectangle_material((0,0), simulator.SIZE_X, simulator.SIZE_Y / 2, epsilon_r, sigma, "#191981", alpha=0.1)
@@ -290,11 +290,10 @@ for angle in angle_linspace:
 	simulator_the_second.gaussian_beam(starting_point = (pos_dir[0][0], pos_dir[0][1]), 
 						direction = (pos_dir[1][0], pos_dir[1][1]), width = 40, function = source_func)
 
-	propagate_waves(100)
+	propagate_waves(200)
 	calculate_analytical_fresnel_coeff(angle)	
 	measure_power_flux()
 	calculate_fft2()
-	#plot()
 	clear_sim(simulator)
 	clear_sim(simulator_the_second)
 	
@@ -306,10 +305,10 @@ measured_fresnel_T_arr = np.array(measured_fresnel_T_arr)
 
 
 folder = 'results'
-angles_arr.tofile(f'{folder}/angles_arr.csv', sep = ';')
-analytical_fresnel_R_arr.tofile(f'{folder}/analytical_fresnel_R_arr.csv', sep = ';')
-analytical_fresnel_T_arr.tofile(f'{folder}/analytical_fresnel_T_arr.csv', sep = ';')
-measured_fresnel_T_arr.tofile(f'{folder}/measured_fresnel_T_arr.csv', sep = ';')
+angles_arr.tofile(f'{folder}/angles_arr_1over4.csv', sep = ';')
+analytical_fresnel_R_arr.tofile(f'{folder}/analytical_fresnel_R_arr_1over4.csv', sep = ';')
+analytical_fresnel_T_arr.tofile(f'{folder}/analytical_fresnel_T_arr_1over4.csv', sep = ';')
+measured_fresnel_T_arr.tofile(f'{folder}/measured_fresnel_T_arr_1over4.csv', sep = ';')
 
 
 
